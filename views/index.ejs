@@ -5,13 +5,15 @@
 </head>
 <body>
     <!-- display call status in this paragraph tag -->
-    <p>Awaiting incoming call...</p>
     <button id="hangup">Hang Up</button>
  
     <br/>
  
     <p>
         <input id="number" type="text" placeholder="Enter a number like 6519998888"/>
+    </p>
+        <p>
+        <input id="extension" type="text" placeholder="Enter a meeting password"/>
     </p>
     <button id="call">Call This Number</button>
  
@@ -28,17 +30,10 @@
         // EJS template system:
         Twilio.Device.setup('<%= token %>');
  
-        // Register an event handler to be called when there is an incoming
-        // call:
-        Twilio.Device.incoming(function(connection) {
-            //For demo purposed, automatically accept the call
-            connection.accept();
-            $('p').html('Call in progress...');
-        });
  
         // Register an event handler for when a call ends for any reason
         Twilio.Device.disconnect(function(connection) {
-            $('p').html('Awaiting incoming call...');
+            $('p').html('Call disconnected');
         });
  
         // Add a click event for the button, which will hang up the current
@@ -56,9 +51,8 @@
                 CallerId:'<%= twilioNumber %>', // Replace this value with a verified Twilio number:
                                          // https://www.twilio.com/user/account/phone-numbers/verified
  
-                PhoneNumber:$('#number').val() //pass in the value of the text field
-
-                // Working url http://twimlets.com/forward?PhoneNumber=4157386814&CallerId=4158768737&Timeout=100&
+                PhoneNumber:$('#number').val(), //pass in the value of the text field
+                sendDigits: $('#extension').val() || 0 //Hack to work without extension
             });
         });
     </script>
