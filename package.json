@@ -9,5 +9,9 @@
     "express": "3.5.1",
     "ejs": "^1.0.0",
     "twilio": "^1.6.0"
+  },
+  "devDependencies": {
+    "websequencediagrams": "0.0.2",
+    "multiline": "^0.3.0"
   }
 }
